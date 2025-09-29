@@ -1,14 +1,16 @@
 [phases.setup]
-nixPkgs = ['...', 'php83Extensions.gd']
+nixPkgs = ['php83', 'php83Extensions.gd', 'php83Extensions.zip', 'php83Extensions.pdo', 'php83Extensions.pdo_mysql', 'nodejs', 'npm']
 
 [phases.install]
 cmds = [
-  'composer install --optimize-autoloader --no-dev --ignore-platform-reqs',
-  'npm ci --omit=dev'
+  'composer install --optimize-autoloader --no-dev --no-interaction --ignore-platform-reqs'
 ]
 
 [phases.build]
-cmds = ['npm run build']
+cmds = [
+  'npm ci',
+  'npm run build'
+]
 
 [start]
 cmd = 'php artisan serve --host=0.0.0.0 --port=${PORT:-8000}'
